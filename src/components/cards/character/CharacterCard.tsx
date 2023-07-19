@@ -1,5 +1,8 @@
-import Image from 'next/image';
-import styles from './CharacterCard.module.css';
+import { CardActionArea, Chip } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
 
 export interface ICharacterCard {
   name: string;
@@ -8,25 +11,27 @@ export interface ICharacterCard {
 
 const CharacterCard: React.FC<ICharacterCard> = ({ name, specie }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.card}>
-        <div className={styles.card__header}>
-          <Image
-            src="https://rickandmortyapi.com/api/character/avatar/2.jpeg"
-            alt="card__image"
-            className={styles.card__image}
-            width="600"
-            height="400"
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="200"
+          image="https://rickandmortyapi.com/api/character/avatar/69.jpeg"
+          alt={`${name} picture`}
+        />
+        <CardContent>
+          <Chip
+            label={specie}
+            color="secondary"
+            size="small"
+            variant="outlined"
           />
-        </div>
-        <div className={styles.card__body}>
-          <span className={`${styles.tag} ${styles['tag-blue']}`}>
-            {specie}
-          </span>
-          <h4>{name}</h4>
-        </div>
-      </div>
-    </div>
+          <Typography gutterBottom variant="h5" component="div">
+            {name}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 };
 
