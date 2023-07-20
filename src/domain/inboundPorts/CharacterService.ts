@@ -1,14 +1,14 @@
-import RickAndMartyApi from '@/adapters/driven/RickAndMartyApi';
-import { ICharacter } from '../models/Character';
+import RickAndMartyQueryApi from '@/adapters/driven/RickAndMartyQueryApi';
+import { ICharacterPreview } from '../models/ICharacterPreview';
 
 interface ICharacterService {
-  listCharacters(): Promise<ICharacter[]>;
+  listCharacters(): Promise<ICharacterPreview[]>;
   //   findCharacter(_id: number): Promise<ICharacter | null>;
 }
 
 const CharacterService: ICharacterService = {
   listCharacters: async () => {
-    const characters = await RickAndMartyApi.getAllCharacters();
+    const characters = await RickAndMartyQueryApi.getAllCharacters();
 
     return characters;
   },

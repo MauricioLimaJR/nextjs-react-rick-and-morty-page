@@ -19,7 +19,7 @@ interface ICharacterDTO {
   created: string;
 }
 
-export interface ICharacterApiResponse {
+export interface ICharacterRestApiResponse {
   info: {
     count: number;
     pages: number;

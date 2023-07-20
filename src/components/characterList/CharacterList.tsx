@@ -1,12 +1,12 @@
 import CharacterCard from '@/components/cards/character/CharacterCard';
-import { ICharacter } from '@/domain/models/Character';
+import { ICharacterPreview } from '@/domain/models/ICharacterPreview';
 import { Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 import CharacterInfoModal from '../characterInfoModal/CharacterInfoModal';
 import { mockCharacterInfoProps } from '../characterInfoModal/CharacterInfoModal.mocks';
 
 interface ICharacterList {
-  characterList: ICharacter[];
+  characterList: ICharacterPreview[];
 }
 
 const CharacterList: React.FC<ICharacterList> = ({ characterList }) => {

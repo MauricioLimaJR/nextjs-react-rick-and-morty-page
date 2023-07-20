@@ -1,11 +1,13 @@
 import CharacterList from '@/components/characterList/CharacterList';
 import CharacterService from '@/domain/inboundPorts/CharacterService';
-import { ICharacter } from '@/domain/models/Character';
+import { ICharacterPreview } from '@/domain/models/ICharacterPreview';
 import { Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 
 const Home: React.FC = () => {
-  const [characterList, setCharacterList] = React.useState<ICharacter[]>([]);
+  const [characterList, setCharacterList] = React.useState<ICharacterPreview[]>(
+    []
+  );
 
   const loadCharacterList = async () => {
     const characters = await CharacterService.listCharacters();

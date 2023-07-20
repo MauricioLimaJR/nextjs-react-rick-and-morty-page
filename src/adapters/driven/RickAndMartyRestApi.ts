@@ -1,11 +1,11 @@
-import { ICharacter } from '@/domain/models/Character';
+import { ICharacter } from '@/domain/models/ICharacter';
 import { ICharacterRepository } from '@/domain/outboundPorts/CharacterRepository';
-import { ICharacterApiResponse } from './ICharacterApiResponse';
+import { ICharacterRestApiResponse } from './ICharacterRestApiResponse';
 
-const RickAndMartyAp: ICharacterRepository = {
+const RickAndMartyRestApi: ICharacterRepository = {
   getAllCharacters: async () => {
     const res = await fetch('https://rickandmortyapi.com/api/character');
-    const data: ICharacterApiResponse = await res.json();
+    const data: ICharacterRestApiResponse = await res.json();
 
     const characters = data.results.map(
       (character) =>
@@ -23,10 +23,8 @@ const RickAndMartyAp: ICharacterRepository = {
         }) as ICharacter
     );
 
-    console.log(characters);
-
     return characters;
   },
 };
 
-export default RickAndMartyAp;
+export default RickAndMartyRestApi;

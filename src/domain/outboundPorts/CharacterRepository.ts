@@ -1,6 +1,6 @@
-import { ICharacter } from '../models/Character';
+import { ICharacterPreview } from '../models/ICharacterPreview';
 
 export interface ICharacterRepository {
-  getAllCharacters(): Promise<ICharacter[]>;
+  getAllCharacters(): Promise<ICharacterPreview[]>;
   //   getCharacter(_id: number): Promise<ICharacter | null>;
 }
