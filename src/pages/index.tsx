@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-page-custom-font */
-import Home from '@/components/home/Home';
-import { ThemeProvider } from '@emotion/react';
-import { createTheme } from '@mui/material';
-import type { NextPage } from 'next';
-import Head from 'next/head';
+import Home from "@/components/home/Home";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material";
+import type { NextPage } from "next";
+import Head from "next/head";
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 
