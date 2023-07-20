@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 
 export interface ICharacterCard {
   id: number;
+  image: string;
   name: string;
   specie: string;
   onCardClick: () => void;
@@ -18,7 +19,7 @@ const CharacterCard: React.FC<ICharacterCard> = (props) => {
         <CardMedia
           component="img"
           height="200"
-          image="https://rickandmortyapi.com/api/character/avatar/69.jpeg"
+          image={props.image}
           alt={`${props.name} picture`}
         />
         <CardContent>

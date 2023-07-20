@@ -1,14 +1,12 @@
-import CharacterCard, {
-  ICharacterCard,
-} from '@/components/cards/character/CharacterCard';
-import { mockCharacterCardProps } from '@/components/cards/character/CharacterCard.mocks';
+import CharacterCard from '@/components/cards/character/CharacterCard';
+import { ICharacter } from '@/domain/models/Character';
 import { Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 import CharacterInfoModal from '../characterInfoModal/CharacterInfoModal';
 import { mockCharacterInfoProps } from '../characterInfoModal/CharacterInfoModal.mocks';
 
 interface ICharacterList {
-  characterList: ICharacterCard[];
+  characterList: ICharacter[];
 }
 
 const CharacterList: React.FC<ICharacterList> = ({ characterList }) => {
@@ -39,18 +37,25 @@ const CharacterList: React.FC<ICharacterList> = ({ characterList }) => {
 
   return (
     <>
-      <Container>
-        <Grid container spacing={4} justifyContent="space-evenly">
-          {characterList.map((character) => (
-            <Grid key={character.name} item>
-              <CharacterCard
-                {...mockCharacterCardProps.base}
-                onCardClick={() => handleOnCardClick(character.id)}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+      <Grid
+        container
+        spacing={4}
+        justifyContent="space-evenly"
+        overflow="scroll"
+        maxHeight="100%"
+      >
+        {characterList.map((character) => (
+          <Grid key={character.name} item>
+            <CharacterCard
+              id={character.id}
+              image={character.image}
+              name={character.name}
+              specie={character.specie}
+              onCardClick={() => handleOnCardClick(character.id)}
+            />
+          </Grid>
+        ))}
+      </Grid>
 
       <CharacterInfoModal
         isOpen={openCharacterInfoModal}
