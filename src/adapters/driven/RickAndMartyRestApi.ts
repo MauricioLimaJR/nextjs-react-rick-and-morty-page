@@ -1,10 +1,10 @@
-import { ICharacter } from '@/domain/models/ICharacter';
-import { ICharacterRepository } from '@/domain/outboundPorts/CharacterRepository';
-import { ICharacterRestApiResponse } from './ICharacterRestApiResponse';
+import { ICharacter } from "@/domain/models/ICharacter";
+import { ICharacterRepository } from "@/domain/outboundPorts/CharacterRepository";
+import { ICharacterRestApiResponse } from "./ICharacterRestApiResponse";
 
 const RickAndMartyRestApi: ICharacterRepository = {
   getAllCharacters: async () => {
-    const res = await fetch('https://rickandmortyapi.com/api/character');
+    const res = await fetch("https://rickandmortyapi.com/api/character");
     const data: ICharacterRestApiResponse = await res.json();
 
     const characters = data.results.map(
@@ -24,6 +24,9 @@ const RickAndMartyRestApi: ICharacterRepository = {
     );
 
     return characters;
+  },
+  getCharacterById: function (_id: number): Promise<ICharacter> {
+    throw new Error("Function not implemented.");
   },
 };
 
