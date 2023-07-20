@@ -1,8 +1,9 @@
+import { ICharacter } from '@/domain/models/ICharacter';
 import { Box, Modal } from '@mui/material';
-import CharacterInfo, { ICharacterInfo } from './CharacterInfo';
+import CharacterInfo from './CharacterInfo';
 
 interface ICharacterInfoModal {
-  characterInfo: ICharacterInfo;
+  character: ICharacter;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -24,7 +25,7 @@ const CharacterInfoModal: React.FC<ICharacterInfoModal> = (props) => {
   return (
     <Modal open={props.isOpen} onClose={props.onClose}>
       <Box sx={style}>
-        <CharacterInfo characterInfo={props.characterInfo} />
+        <CharacterInfo character={props.character} />
       </Box>
     </Modal>
   );

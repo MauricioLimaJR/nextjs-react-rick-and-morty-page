@@ -6,7 +6,7 @@ export interface ICharacter {
   type: string;
   gender: string;
   origin: string;
-  location: String;
+  location: string;
   image: string;
   episode: string[];
 }

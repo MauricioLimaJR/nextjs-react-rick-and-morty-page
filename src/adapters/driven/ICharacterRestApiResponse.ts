@@ -1,4 +1,4 @@
-interface ICharacterDTO {
+export interface ICharacterDTO {
   id: number;
   name: string;
   status: string;

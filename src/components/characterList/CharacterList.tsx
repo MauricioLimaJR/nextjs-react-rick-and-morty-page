@@ -1,9 +1,10 @@
+import CharacterController from '@/adapters/driving/CharacterController';
 import CharacterCard from '@/components/cards/character/CharacterCard';
+import { ICharacter } from '@/domain/models/ICharacter';
 import { ICharacterPreview } from '@/domain/models/ICharacterPreview';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, LinearProgress, Typography } from '@mui/material';
 import React from 'react';
 import CharacterInfoModal from '../characterInfoModal/CharacterInfoModal';
-import { mockCharacterInfoProps } from '../characterInfoModal/CharacterInfoModal.mocks';
 
 interface ICharacterList {
   characterList: ICharacterPreview[];
@@ -12,16 +13,33 @@ interface ICharacterList {
 const CharacterList: React.FC<ICharacterList> = ({ characterList }) => {
   const [openCharacterInfoModal, setOpenCharacterInfoModal] =
     React.useState<boolean>(false);
-  const [selectedCharacter, setSelectedCharacter] = React.useState<
+  const [selectedCharacterId, setSelectedCharacterId] = React.useState<
     number | null
   >(null);
+  const [selectedCharacter, setSelectedCharacter] =
+    React.useState<ICharacter | null>(null);
+  const [loadingCharacter, setLoadingCharacter] =
+    React.useState<boolean>(false);
 
-  const handleOnCardClick = (characterId: number) => {
-    setSelectedCharacter(characterId);
-    setOpenCharacterInfoModal(true);
+  const handleOnCardClick = async (characterId: number) => {
+    setLoadingCharacter(true);
+    setSelectedCharacterId(characterId);
+
+    const clickedCharacter = await CharacterController.findCharacter(
+      characterId
+    );
+
+    setLoadingCharacter(false);
+
+    if (clickedCharacter) {
+      setSelectedCharacter(clickedCharacter);
+      setOpenCharacterInfoModal(true);
+    } else console.log('Character not found!');
   };
 
   const handleCloseCharacterInfoModal = () => {
+    setSelectedCharacterId(null);
+    setSelectedCharacter(null);
     setOpenCharacterInfoModal(false);
   };
 
@@ -53,15 +71,20 @@ const CharacterList: React.FC<ICharacterList> = ({ characterList }) => {
               specie={character.specie}
               onCardClick={() => handleOnCardClick(character.id)}
             />
+            {loadingCharacter && selectedCharacterId === character.id && (
+              <LinearProgress />
+            )}
           </Grid>
         ))}
       </Grid>
 
-      <CharacterInfoModal
-        isOpen={openCharacterInfoModal}
-        characterInfo={mockCharacterInfoProps.base}
-        onClose={handleCloseCharacterInfoModal}
-      />
+      {selectedCharacter && (
+        <CharacterInfoModal
+          isOpen={openCharacterInfoModal}
+          character={selectedCharacter}
+          onClose={handleCloseCharacterInfoModal}
+        />
+      )}
     </>
   );
 };

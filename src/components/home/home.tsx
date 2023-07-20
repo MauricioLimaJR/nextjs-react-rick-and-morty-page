@@ -1,5 +1,5 @@
+import CharacterController from '@/adapters/driving/CharacterController';
 import CharacterList from '@/components/characterList/CharacterList';
-import CharacterService from '@/domain/inboundPorts/CharacterService';
 import { ICharacterPreview } from '@/domain/models/ICharacterPreview';
 import { Container, Grid, Typography } from '@mui/material';
 import React from 'react';
@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   );
 
   const loadCharacterList = async () => {
-    const characters = await CharacterService.listCharacters();
+    const characters = await CharacterController.listCharacters();
     setCharacterList(characters);
   };
 

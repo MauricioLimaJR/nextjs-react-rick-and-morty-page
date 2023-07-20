@@ -1,46 +1,35 @@
+import { ICharacter } from '@/domain/models/ICharacter';
 import { Avatar, Grid, Typography } from '@mui/material';
 import CharacterItem from './CharacterItem';
 
-export interface ICharacterInfo {
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-  origin: { name: string; image: string };
-  location: { name: string; image: string };
-  image: string;
-  episode: string[];
-}
-
 interface ICharacterInfoContent {
-  characterInfo: ICharacterInfo;
+  character: ICharacter;
 }
 
-const CharacterInfo: React.FC<ICharacterInfoContent> = ({ characterInfo }) => {
+const CharacterInfo: React.FC<ICharacterInfoContent> = ({ character }) => {
   return (
     <Grid container flexDirection="column" alignItems="center" gap={2}>
       <Avatar
-        alt={characterInfo.name}
-        src={characterInfo.image}
+        alt={character.name}
+        src={character.image}
         sx={{ width: 200, height: 200 }}
       />
 
-      <Typography variant="h3">{characterInfo.name}</Typography>
+      <Typography variant="h3">{character.name}</Typography>
 
       <Grid container flexDirection="row" justifyContent="space-evenly">
-        <CharacterItem label="Status" text={characterInfo.status} />
-        <CharacterItem label="Gender" text={characterInfo.gender} />
+        <CharacterItem label="Status" text={character.status} />
+        <CharacterItem label="Gender" text={character.gender} />
       </Grid>
 
       <Grid container flexDirection="row" justifyContent="space-evenly">
-        <CharacterItem label="Specie" text={characterInfo.species} />
-        <CharacterItem label="Type" text={characterInfo.type} />
+        <CharacterItem label="Specie" text={character.specie} />
+        <CharacterItem label="Type" text={character.type} />
       </Grid>
 
       <Grid container flexDirection="row" justifyContent="space-evenly">
-        <CharacterItem label="Born in" text={characterInfo.origin.name} />
-        <CharacterItem label="Live in" text={characterInfo.location.name} />
+        <CharacterItem label="Born in" text={character.origin} />
+        <CharacterItem label="Live in" text={character.location} />
       </Grid>
     </Grid>
   );
