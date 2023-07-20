@@ -51,6 +51,7 @@ const CharacterList: React.FC<ICharacterList> = ({ characterList }) => {
           ))}
         </Grid>
       </Container>
+
       <CharacterInfoModal
         isOpen={openCharacterInfoModal}
         characterInfo={mockCharacterInfoProps.base}
