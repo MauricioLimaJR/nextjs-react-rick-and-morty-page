@@ -1,19 +1,17 @@
 /* eslint-disable @next/next/no-page-custom-font */
-import { mockCharacterCardProps } from '@/components/cards/character/CharacterCard.mocks';
-import CharacterList from '@/components/characterList/CharacterList';
-import { Container, Grid, Typography } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
+import Home from '../components/home/home';
 
-const Home: NextPage = () => {
-  const list = [
-    mockCharacterCardProps.base,
-    mockCharacterCardProps.base,
-    mockCharacterCardProps.base,
-    mockCharacterCardProps.base,
-  ];
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
+const App: NextPage = () => {
   return (
     <div>
       <Head>
@@ -25,44 +23,14 @@ const Home: NextPage = () => {
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
       </Head>
-      <Container>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={8}
-        >
-          <Grid item>
-            <Typography variant="h3" textAlign="center" gutterBottom>
-              Welcome to{' '}
-              <a href="rickandmortyapi.com">The Rick and Morty API</a>
-            </Typography>
 
-            <CharacterList characterList={list} />
-          </Grid>
-
-          <Grid item textAlign="center">
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Powered by{' '}
-              <span>
-                <Image
-                  src="/vercel.svg"
-                  alt="Vercel Logo"
-                  width={72}
-                  height={16}
-                />
-              </span>
-            </a>
-          </Grid>
-        </Grid>
-      </Container>
+      <ThemeProvider theme={darkTheme}>
+        <main>
+          <Home />
+        </main>
+      </ThemeProvider>
     </div>
   );
 };
 
-export default Home;
+export default App;
