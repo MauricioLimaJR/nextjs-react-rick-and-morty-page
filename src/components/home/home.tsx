@@ -3,6 +3,8 @@ import CharacterList from '@/components/characterList/CharacterList';
 import { ICharacterPreview } from '@/domain/models/ICharacterPreview';
 import { Container, Grid, Typography } from '@mui/material';
 import React from 'react';
+import Header from './Header';
+import CharacterSeacher from '../characterSeacher/CharacterSeacher';
 
 const Home: React.FC = () => {
   const [characterList, setCharacterList] = React.useState<ICharacterPreview[]>(
@@ -19,25 +21,26 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <Container sx={{ bgcolor: 'background.paper' }}>
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        bgcolor="background.paper"
-        height="100vh"
-        width="100%"
-      >
-        <Grid item maxHeight="100%">
-          <Typography variant="h3" textAlign="center" gutterBottom>
-            Welcome to <a href="rickandmortyapi.com">The Rick and Morty API</a>
-          </Typography>
+    <>
+      <Header />
+      <Container sx={{ bgcolor: 'background.paper', overflow: 'hidden' }}>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          bgcolor="background.paper"
+          height="100vh"
+          width="100%"
+          gap={4}
+        >
+          <CharacterSeacher />
 
-          <CharacterList characterList={characterList} />
+          <Grid item maxHeight="100%">
+            <CharacterList characterList={characterList} />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   );
 };
 
