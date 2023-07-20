@@ -14,7 +14,7 @@ export interface ICharacterCard {
 
 const CharacterCard: React.FC<ICharacterCard> = (props) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: 250 }}>
       <CardActionArea onClick={props.onCardClick}>
         <CardMedia
           component="img"
@@ -22,12 +22,13 @@ const CharacterCard: React.FC<ICharacterCard> = (props) => {
           image={props.image}
           alt={`${props.name} picture`}
         />
-        <CardContent>
+        <CardContent sx={{ textAlign: 'center' }}>
           <Chip
             label={props.specie}
             color="secondary"
             size="small"
             variant="outlined"
+            sx={{ marginBottom: '2px' }}
           />
           <Typography gutterBottom variant="h5" component="div">
             {props.name}

@@ -1,24 +1,30 @@
-import { ICharacter } from '@/domain/models/ICharacter';
-import { ICharacterPreview } from '@/domain/models/ICharacterPreview';
-import { ICharacterRepository } from '@/domain/outboundPorts/CharacterRepository';
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { ICharacter } from "@/domain/models/ICharacter";
+import { ICharacterPreview } from "@/domain/models/ICharacterPreview";
+import { ICharacterRepository } from "@/domain/outboundPorts/CharacterRepository";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { ISearchFilter } from "../driving/ISearchFilter";
 import {
   ICharacterQueryApiResponse,
   ICharactersQueryApiResponse,
-} from './ICharacterQueryApiResponse';
+} from "./ICharacterQueryApiResponse";
 
 const client = new ApolloClient({
-  uri: 'https://rickandmortyapi.com/graphql',
+  uri: "https://rickandmortyapi.com/graphql",
   cache: new InMemoryCache(),
 });
 
 const RickAndMartyQueryApi: ICharacterRepository = {
-  getAllCharacters: async () => {
+  getAllCharacters: async (filter?: ISearchFilter) => {
     try {
+      const getFilter = () =>
+        `{ ${filter?.name ? `name: "${filter?.name}",` : ""} ${
+          filter?.status ? `status: "${filter?.status}",` : ""
+        } ${filter?.gender ? `gender: "${filter?.gender}"` : ""}}`;
+
       const res = await client.query({
         query: gql`
           query {
-            characters(page: 1) {
+            characters(page: 1, filter: ${getFilter()}) {
               info {
                 count
               }
@@ -93,7 +99,7 @@ const RickAndMartyQueryApi: ICharacterRepository = {
 
       return parsedCharacter;
     } catch (err: any) {
-      throw new Error('Something went wrong at getCharacterById.');
+      throw new Error("Something went wrong at getCharacterById.");
     }
   },
 };

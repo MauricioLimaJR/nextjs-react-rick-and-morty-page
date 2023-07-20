@@ -1,10 +1,11 @@
 import CharacterService, {
   ICharacterService,
 } from '@/domain/inboundPorts/CharacterService';
+import { ISearchFilter } from './ISearchFilter';
 
 const CharacterController: ICharacterService = {
-  listCharacters: async () => {
-    const characters = await CharacterService.listCharacters();
+  listCharacters: async (filter?: ISearchFilter) => {
+    const characters = await CharacterService.listCharacters(filter);
 
     return characters;
   },

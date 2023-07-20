@@ -1,3 +1,4 @@
+import { ISearchFilter } from "@/adapters/driving/ISearchFilter";
 import {
   Button,
   ButtonGroup,
@@ -7,21 +8,21 @@ import {
   MenuItem,
   Select,
   TextField,
-} from '@mui/material';
-import React from 'react';
+} from "@mui/material";
+import React from "react";
 
-interface ISearchFilterState {
-  name?: string;
-  status: string;
-  gender: string;
+interface ICharacterSeacher {
+  handleSearchClick: (_filter?: ISearchFilter) => void;
 }
-const CharacterSeacher: React.FC = () => {
+
+const CharacterSeacher: React.FC<ICharacterSeacher> = ({
+  handleSearchClick,
+}) => {
   const [searchFilterState, setSearchFilterState] =
-    React.useState<ISearchFilterState>({ status: '', gender: '' });
+    React.useState<ISearchFilter>({ name: "", status: "", gender: "" });
 
   const handleCleanFields = () => {
-    console.log(searchFilterState);
-    setSearchFilterState({ name: '', status: '', gender: '' });
+    setSearchFilterState({ name: "", status: "", gender: "" });
   };
 
   return (
@@ -87,7 +88,9 @@ const CharacterSeacher: React.FC = () => {
       <Grid item>
         <ButtonGroup variant="outlined" size="large">
           <Button onClick={handleCleanFields}>Clean</Button>
-          <Button>Search</Button>
+          <Button onClick={() => handleSearchClick(searchFilterState)}>
+            Search
+          </Button>
         </ButtonGroup>
       </Grid>
     </Grid>

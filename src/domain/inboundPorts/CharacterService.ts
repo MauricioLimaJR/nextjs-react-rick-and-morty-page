@@ -1,15 +1,16 @@
 import RickAndMartyQueryApi from '@/adapters/driven/RickAndMartyQueryApi';
+import { ISearchFilter } from '@/adapters/driving/ISearchFilter';
 import { ICharacter } from '../models/ICharacter';
 import { ICharacterPreview } from '../models/ICharacterPreview';
 
 export interface ICharacterService {
-  listCharacters(): Promise<ICharacterPreview[]>;
+  listCharacters(_filter?: ISearchFilter): Promise<ICharacterPreview[]>;
   findCharacter(_id: number): Promise<ICharacter | null>;
 }
 
 const CharacterService: ICharacterService = {
-  listCharacters: async () => {
-    const characters = await RickAndMartyQueryApi.getAllCharacters();
+  listCharacters: async (filter?: ISearchFilter) => {
+    const characters = await RickAndMartyQueryApi.getAllCharacters(filter);
 
     return characters;
   },

@@ -1,18 +1,19 @@
-import CharacterController from '@/adapters/driving/CharacterController';
-import CharacterList from '@/components/characterList/CharacterList';
-import { ICharacterPreview } from '@/domain/models/ICharacterPreview';
-import { Container, Grid, Typography } from '@mui/material';
-import React from 'react';
-import Header from './Header';
-import CharacterSeacher from '../characterSeacher/CharacterSeacher';
+import CharacterController from "@/adapters/driving/CharacterController";
+import { ISearchFilter } from "@/adapters/driving/ISearchFilter";
+import CharacterList from "@/components/characterList/CharacterList";
+import { ICharacterPreview } from "@/domain/models/ICharacterPreview";
+import { Container, Grid } from "@mui/material";
+import React from "react";
+import CharacterSeacher from "../characterSeacher/CharacterSeacher";
+import Header from "./Header";
 
 const Home: React.FC = () => {
   const [characterList, setCharacterList] = React.useState<ICharacterPreview[]>(
     []
   );
 
-  const loadCharacterList = async () => {
-    const characters = await CharacterController.listCharacters();
+  const loadCharacterList = async (filter?: ISearchFilter) => {
+    const characters = await CharacterController.listCharacters(filter);
     setCharacterList(characters);
   };
 
@@ -22,20 +23,21 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Header />
-      <Container sx={{ bgcolor: 'background.paper', overflow: 'hidden' }}>
+      <Container sx={{ bgcolor: "background.paper", overflow: "hidden" }}>
         <Grid
           container
           justifyContent="center"
-          alignItems="center"
+          alignItems="flex-start"
           bgcolor="background.paper"
           height="100vh"
           width="100%"
           gap={4}
         >
-          <CharacterSeacher />
+          <Header />
 
-          <Grid item maxHeight="100%">
+          <CharacterSeacher handleSearchClick={loadCharacterList} />
+
+          <Grid height={"80%"}>
             <CharacterList characterList={characterList} />
           </Grid>
         </Grid>
